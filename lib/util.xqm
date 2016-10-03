@@ -15,6 +15,7 @@ import module namespace request="http://exist-db.org/xquery/request";
 import module namespace response="http://exist-db.org/xquery/response";
 import module namespace session="http://exist-db.org/xquery/session";
 import module namespace xdb = "http://exist-db.org/xquery/xmldb";
+import module namespace cas = "http://oppidoc.com/ns/cas" at "../../ccmatch/lib/cas.xqm";
 
 declare variable $oppidum:DEFAULT_ERR_LOC := '/db/www/oppidum/config/errors.xml';
 
@@ -525,14 +526,14 @@ declare function oppidum:my-test-role-iter( $index as xs:integer, $roles as xs:s
 
 declare function oppidum:check-user( $name as xs:string ) as xs:boolean
 {
-  let $user := xdb:get-current-user()
+  let $user := cas:get-current-user()
   return $user = $name
 };
 
 declare function oppidum:check-group( $name as xs:string ) as xs:boolean
 {
-  let $user := xdb:get-current-user()
-  return $name = xdb:get-user-groups($user)
+  let $user := cas:get-current-user()
+  return $name = cas:get-user-groups($user)
 };
 
 (: ======================================================================
